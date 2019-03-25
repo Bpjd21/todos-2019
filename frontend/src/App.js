@@ -6,7 +6,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentItemText: "This actually works",
+      currentItemText: "",
       todos: ["Loading..."]
     };
   }
@@ -22,8 +22,22 @@ class App extends Component {
     this.setState({ currentItemText: text });
   };
   addNew = text => {
-    const newTodos = [...this.state.todos, text];
-    this.setState({ todos: newTodos });
+    fetch("https://localhost:44306/api/todos", {
+      method: "POST",
+      body: JSON.stringify(text),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => {
+        if (res.ok) {
+          const newTodos = [...this.state.todos, text];
+          this.setState({ todos: newTodos });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {

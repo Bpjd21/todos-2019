@@ -11,7 +11,7 @@ namespace Todos2019.Controllers
     [ApiController]
     public class TodosController : ControllerBase
     {
-        private List<string> all = new List<string>()
+        private static List<string> all = new List<string>()
         {
              "Mike", "Bob", "Jimbob"
         };
