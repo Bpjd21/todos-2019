@@ -7,8 +7,13 @@ class App extends Component {
     super();
     this.state = {
       currentItemText: "This actually works",
-      todos: ["Add a todo", "Remove todo"]
+      todos: ["Loading..."]
     };
+  }
+  componentDidMount() {
+    fetch("https://localhost:44306/api/todos")
+      .then(res => res.json())
+      .then(json => this.setState({ todos: json }));
   }
   resetAll = () => {
     this.setState({ currentItemText: "", todos: [] });
